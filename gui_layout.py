@@ -102,7 +102,7 @@ Label(master).grid(row=20)
 up_arrow= PhotoImage(file = "green-arrow.png")
 up_arrow = up_arrow.subsample(2,2)
 
-up_arrow_flip = PhotoImage(file = "up_arrow_flip")
+up_arrow_flip = PhotoImage(file = "up_arrow_flip.png")
 up_arrow_flip = up_arrow_flip.subsample(2,2)
 
 #set up homing and direction buttons
@@ -116,7 +116,7 @@ move_one= Button(master, text = "1mm", image = up_arrow, compound = LEFT)
 move_one.grid(row = 9, column =8)
 move_neg_one= Button(master, text = "1mm", image = up_arrow_flip, compound = LEFT)
 move_neg_one.grid(row = 10, column = 8)
-move_neg_ten = Button(master, text ="10mm", image = up_arrow_flip, compound = LEFT)
+move_neg_ten = Button(master, text ="10mm", image = up_arrow_flip, compound = LEFT) 
 move_neg_ten.grid(row =11, column =8)
 
 
@@ -157,6 +157,8 @@ master.grid_rowconfigure(15, weight =1)
 master.grid_rowconfigure(16, weight =1)
 master.grid_rowconfigure(17, weight =1)
 master.grid_rowconfigure(18, weight =1)
+
+mainloop()
 
 
 
