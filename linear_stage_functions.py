@@ -31,12 +31,12 @@ GPIO.setup(LIMITSWITCH, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 #the stepper in one place. 
 
 class stepper:
-    def __init__(self, step_angle, screw_pitch, pulse_pin, dir_pin, steps_per_rev, msteps):
+    def __init__(self, step_angle, screw_pitch, pulse_pin, dir_pin, msteps):
         self.step_angle = float(step_angle)
         self.screw_pitch = float(screw_pitch)
         self.pulse_pin = int(pulse_pin)
         self.dir_pin = int(dir_pin)
-        self.steps_per_rev = int(steps_per_rev)
+        self.steps_per_rev = int((360/step_angle)*msteps)
         self.msteps = int(msteps)
         GPIO.setup(int(pulse_pin), GPIO.OUT)
         GPIO.setup(int(dir_pin), GPIO.OUT)
