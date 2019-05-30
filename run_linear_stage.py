@@ -21,27 +21,24 @@ ETCHANT_DIRECTION =1
 def initiate_motor():
     try:
         global mymotor
-        newmotor = stepper(SA_e.get(), SP_e.get(), PP_e.get(), DP_e.get(),SPR_e.get())
+        newmotor = stepper(SA_e.get(), SP_e.get(), PP_e.get(), DP_e.get(), MPS_e.get())
         mymotor = newmotor
     except:
         messagebox.showerror("Error", "The Motor information you have entered is invalid. Please try again")
         #print("The Motor information you have entered is invalid. Please try again")
 
-def testglobal():
-    messagebox.showinfo("INFORMATION",mymotor.step_angle)
-
-    #print(mymotor.step_angle)
 def run_constant_velocity():
     try:
         global ETCHANT_DIRECTION
         global ENDSTOP_ENABLED
         global HOMING_SPEED
+
         initiate_motor()
-        const_velocity_movement(float(i_p.get()), float(f_p.get()), mymotor, float(a_e.get()), ETCHANT_DIRECTION)
+        run_motor_no_acceleration(float(i_p.get()), float(f_p.get()), mymotor, float(a_e.get()), ETCHANT_DIRECTION)
         if(ENDSTOP_ENABLED==True):
             home(mymotor, limitswitch)
         else:
-            const_velocity_movement(float(i_p.get()+50), float(f_p.get()), mymotor, float(HOMING_SPEED), HOME_DIRECTION)
+            run_motor_no_acceleration(float(i_p.get()-50), float(f_p.get()), mymotor, float(HOMING_SPEED), HOME_DIRECTION)
     except:
         messagebox.showerror("Error", "Error has ocurred, please try again")
 def run_constant_acceleration():
@@ -54,7 +51,7 @@ def run_constant_acceleration():
         if(ENDSTOP_ENABLED==True):
             home(mymotor, limitswitch)
         else:
-            const_velocity_movement(float(i_p.get()+50), float(f_p.get()), mymotor, float(HOMING_SPEED), HOME_DIRECTION)
+            run_motor_no_acceleration(float(i_p.get()-50), float(f_p.get()), mymotor, float(HOMING_SPEED), HOME_DIRECTION)
         
     except:
         messagebox.showerror("Error", "Error has ocurred, please try again")
@@ -69,10 +66,11 @@ def run_constant_jerk():
         if(ENDSTOP_ENABLED==True):
             home(mymotor, limitswitch)
         else:
-            const_velocity_movement(float(i_p.get()+50), float(f_p.get()), mymotor, float(HOMING_SPEED), HOME_DIRECTION)
+            run_motor_no_acceleration(float(i_p.get()-50), float(f_p.get()), mymotor, float(HOMING_SPEED), HOME_DIRECTION)
             
     except:
         messagebox.showerror("Error", "Error has ocurred, please try again")
+
 def run_home():
     try:
         initiate_motor()

@@ -18,7 +18,7 @@ Label(master, text = "Motor Information", font = ('Montserrat', 28)). grid(row =
 Label(master).grid(row =1)
 Label(master, text = "Step Angle", font = ('Montserrat', 22)).grid(row=2, column =1)
 Label(master, text="Screw Pitch (mm)", font = ('Montserrat', 22)).grid(row=2, column =2)
-Label(master, text="Steps per Revolution", font = ('Montserrat', 22)).grid(row=2, column =3)
+Label(master, text="Microsteps per Step", font = ('Montserrat', 22)).grid(row=2, column =3)
 Label(master, text="Pulse Pin", font = ('Montserrat', 22)).grid(row=2, column =4)
 Label(master, text="Direction Pin", font = ('Montserrat', 22)).grid(row=2 ,column =5)
 
@@ -26,7 +26,7 @@ Label(master, text="Direction Pin", font = ('Montserrat', 22)).grid(row=2 ,colum
 #These create the entry boxes for the motor informatiom
 SA_e = Entry(master) #step angle
 SP_e = Entry(master) #Screw pitch
-SPR_e = Entry(master) #steps per revolution
+MPS_e = Entry(master) #steps per revolution
 PP_e = Entry(master) #pulse pin
 DP_e = Entry(master) # direction pin
 
@@ -34,7 +34,7 @@ DP_e = Entry(master) # direction pin
 #lays out the location of the entry boxes for the motor information
 SA_e.grid(row=3, column=1)
 SP_e.grid(row=3, column=2)
-SPR_e.grid(row=3, column=3)
+MPS_e.grid(row=3, column=3)
 PP_e.grid(row=3, column=4)
 DP_e.grid(row=3, column=5)
 
@@ -47,8 +47,8 @@ Label(master).grid(row =5)
 Label(master, text =  "Constants", font = ('Montserrat', 28)).grid(row =6, column = 3)
 Label(master).grid(row = 7)
 Label(master, text =  "a (mm/sec)", font = ('Montserrat', 22)).grid(row =8, column = 2)
-Label(master, text =  "b (1/sec)", font = ('Montserrat', 22)).grid(row =8, column = 3)
-Label(master, text =  "c", font = ('Montserrat', 22)).grid(row =8, column = 4)
+Label(master, text =  "b (mm/sec^2)", font = ('Montserrat', 22)).grid(row =8, column = 3)
+Label(master, text =  "c (mm/sece^3)", font = ('Montserrat', 22)).grid(row =8, column = 4)
 
 
 #creates entry boxes for all the constants and gives the location of these boxes
@@ -158,7 +158,7 @@ master.grid_rowconfigure(16, weight =1)
 master.grid_rowconfigure(17, weight =1)
 master.grid_rowconfigure(18, weight =1)
 
-mainloop()
+
 
 
 
