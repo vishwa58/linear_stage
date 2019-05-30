@@ -11,11 +11,7 @@ GPIO.setwarnings(False) #Turns off unnecessary warnings provided by Raspberry Pi
 
 GPIO.setmode(GPIO.BCM) #uses BCM mode for pin layout (Don't change)
 
-#These represent the direction the motor will move. 
-#If the stage is not moving in the correct direction either swap the stepper motor wires or swap these values.
-# (Set HOME_DIRECTION to 1 and ETCHANT_DIRECTION to 0)
-HOME_DIRECTION =0
-ETCHANT_DIRECTION =1
+
 
 #Connects the limitswitch to GPIO 21. Change this value if you connected the motor to a different ouput pin
 LIMITSWITCH = 21
@@ -152,23 +148,23 @@ def create_constant_jerk_vector(const_a, const_b, const_c, position_list):
 #Then each velocity is converted into a delay so the stepper motor knows how long it should wait for it to turn at a certain velocity
 #Finally the motor runs at a speed depsngin on the value found in the delay list
 
-def run_motor_no_acceleration(initial_position, final_position, mystepper, const_a):
+def run_motor_no_acceleration(initial_position, final_position, mystepper, const_a, direction):
     position_list =create_Yc_vector(initial_position, final_position, mystepper)
     const_delay = calculate_delay(const_a, mystepper)
     for i in range (len(position_list)):
-        runmotor(mystepper, const_delay, ETCHANT_DIRECTION)
-def run_motor_constant_acceleration(initial_position, final_position, const_a, const_b, mystepper):
+        runmotor(mystepper, const_delay, direction)
+def run_motor_constant_acceleration(initial_position, final_position, const_a, const_b, mystepper, direction):
     position_vector = create_Yc_vector(initial_position, final_position, mystepper)
     velocity_vector = create_linear_velocity_vector(const_a, const_b, position_vector)
     del_vector = create_delay_vector(velocity_vector, mystepper)
     for i in range(len(del_vector)):
-        runmotor(mystepper, del_vector[i], ETCHANT_DIRECTION)   
-def run_motor_linear_acceleration(inital_position, final_position, const_a, const_b, const_c, mystepper):
+        runmotor(mystepper, del_vector[i], direction)   
+def run_motor_linear_acceleration(inital_position, final_position, const_a, const_b, const_c, mystepper, direction):
     position_vector = create_Yc_vector(inital_position,final_position,mystepper)
     vel_vector = create_constant_jerk_vector(const_a, const_b,const_c, position_vector)
     del_vector = create_delay_vector(vel_vector,mystepper)
     for i in range(len(del_vector)):
-        runmotor(mystepper, del_vector[i], ETCHANT_DIRECTION)
+        runmotor(mystepper, del_vector[i], direction)
 
 
 
