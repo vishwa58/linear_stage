@@ -36,8 +36,8 @@ class stepper:
         self.screw_pitch = float(screw_pitch)
         self.pulse_pin = int(pulse_pin)
         self.dir_pin = int(dir_pin)
-        self.steps_per_rev = int((360/step_angle)*msteps)
         self.msteps = int(msteps)
+        self.steps_per_rev = int((360/step_angle)*msteps)
         GPIO.setup(int(pulse_pin), GPIO.OUT)
         GPIO.setup(int(dir_pin), GPIO.OUT)
 
