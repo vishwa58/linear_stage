@@ -1,6 +1,6 @@
 # This file contains all of the functions that allow the motor to be controlled
 
-from motor_constants.py import *
+
 from time import sleep #imports sleep function
 import RPi.GPIO as GPIO #allows for use of GPIO pins
 from math import log #allows for log
@@ -9,8 +9,8 @@ GPIO.setwarnings(False) #Turns off unnecessary warnings provided by Raspberry Pi
 GPIO.setmode(GPIO.BCM) #uses BCM mode for pin layout (Don't change)
 
 #sets up the limitswitch as an input pin and sets its default statw to untriggered
-GPIO.setup(LIMITSWITCH, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 
+#GPIO.setup(LIMITSWITCH, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 
 #STEPPER MOTOR CLASS
 
@@ -53,7 +53,7 @@ def create_Yc_vector(initial_position, final_position, mystepper):
 def create_velocity_vector(const_a, const_b , const_c , position_list):
         velocity_list = []
         for i in range (len(position_list)):
-                v = const_c*(position_list[i]**2)+ const_b*position_list[i]+const_a
+                v = float(const_c)*(position_list[i]**2)+ float(const_b)*position_list[i]+float(const_a)
                 velocity_list.append(v)
         return velocity_list
 #Helper function for create_delay vector
@@ -82,7 +82,7 @@ def runmotor(mystepper, delay, direction):
     sleep(delay) 
     GPIO.output(mystepper.pulse_pin,0) 
     sleep(delay)
-def move_linear_stage(initial_position, final_position, mystepper, const_a, const_b, const_c, mystepper, direction):
+def move_linear_stage(initial_position, final_position, mystepper, const_a, const_b, const_c, direction):
         position_vector = create_Yc_vector(initial_position, final_position, mystepper)
         vel_vector = create_velocity_vector(const_a, const_b, const_c, position_vector)
         del_vector = create_delay_vector(vel_vector,mystepper)
@@ -100,11 +100,16 @@ def movedistance(mystepper, delay, direction, distance):
 
 
 # s the linear stage towards the endstop and then moves it four full revolutions away from the endstop to prevent retriggering
-def home(mystepper, limitswitch_pin):
+def home(mystepper, limitswitch_pin, home_speed, direction):
     while(GPIO.input(limitswitch_pin)==True): #run the motor while the endstop is not pressed
-        runmotor(mystepper, HOMING_SPEED, HOME_DIRECTION)
+        runmotor(mystepper, home_speed, direction)
     GPIO.output(mystepper.pulse_pin, 0)
-    movedistance(mystepper, HOMING_SPEED*30, HOME_DIRECTI0N, 4*mystepper.steps_per_rev) #to move away from the endstoop
+    if (direction ==1):
+        direction =0
+    else:
+        direction =1
+    
+    movedistance(mystepper, home_speed*2, direction, 4*mystepper.steps_per_rev) #to move away from the endstoop
 
    
 

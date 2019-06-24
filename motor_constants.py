@@ -1,3 +1,5 @@
+import RPi.GPIO as GPIO #allows for use of GPIO pins
+
 #This file constains all the constants fr the motor informatin and can be changed at will
 #sets the step angle for the stepper motor
 STEP_ANGLE = 1.8
@@ -11,6 +13,7 @@ DIR_PIN = 23
 PULSE_PIN = 24
 #Sets the pin for the limitswitch
 LIMITSWITCH = 21
+GPIO.setup(LIMITSWITCH, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 #These represent the direction the motor will move. 
 #If the stage is not moving in the correct direction either swap the stepper motor wires or swap these values.
 # (Set HOME_DIRECTION to 1 and ETCHANT_DIRECTION to 0)
@@ -22,4 +25,4 @@ ETCHANT_DIRECTION =1
 ENDSTOP_ENABLED = False
 
 #This value represents the homing speed
-HOMING_SPEED = .00001
+HOMING_SPEED = .00004
