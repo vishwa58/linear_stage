@@ -73,8 +73,11 @@ def run_constant_jerk():
 
 def run_home():
     try:
-        initiate_motor()
-        home(mymotor, limitswitch)
+        global ENDSTOP_ENABLED
+        if (ENDSTOP_ENABLED==True):
+            initiate_motor()
+            home(mymotor, limitswitch)
+
         
     except:
         messagebox.showinfo("Error", "Unable to home linear stage")

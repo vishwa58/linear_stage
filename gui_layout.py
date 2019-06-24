@@ -161,7 +161,7 @@ master.grid_rowconfigure(18, weight =1)
 
 
 
-
+mainloop()
 
 
 
