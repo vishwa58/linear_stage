@@ -1,4 +1,4 @@
-from gui_layout_v2 import *
+from gui_layout import *
 from linear_stage_functions import *
 from motor_constants import *
 

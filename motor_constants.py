@@ -17,8 +17,8 @@ GPIO.setup(LIMITSWITCH, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 #These represent the direction the motor will move. 
 #If the stage is not moving in the correct direction either swap the stepper motor wires or swap these values.
 # (Set HOME_DIRECTION to 1 and ETCHANT_DIRECTION to 0)
-HOME_DIRECTION =0
-ETCHANT_DIRECTION =1
+HOME_DIRECTION =1
+ETCHANT_DIRECTION =0
 
 
 #Set this value to true if there is an endstop

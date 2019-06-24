@@ -4,14 +4,6 @@ from tkinter import ttk, font, messagebox
 
 
 
-def get_mouse_coordinates(mouse_click):
-    coordinates = (mouse_click.x, mouse_click.y)
-    return coordinates
-    
-def print_coordinates(mouse_click, label):
-    mouse_coordinates = get_mouse_coordinates(mouse_click)
-    label.config(text = str(mouse_coordinates))
-
 
 
 class resizeable_window:
@@ -113,9 +105,9 @@ class resizeable_window:
         constant_vel_pic = tk.PhotoImage(file = "constant_vel.gif")
         linear_vel_pic = tk.PhotoImage(file = "linear_vel.gif")
         non_linear_vel_pic = tk.PhotoImage(file = "non_linear_vel.gif")
-        constant_vel_label = tk.Label(self.f1, image = constant_vel_pic)
-        linear_vel_label = tk.Label(self.f1, image = linear_vel_pic)
-        non_linear_vel_label = tk.Label(self.f1, image = non_linear_vel_pic)
+        constant_vel_label = tk.Label(self.f1, image = constant_vel_pic, bg = "white")
+        linear_vel_label = tk.Label(self.f1, image = linear_vel_pic, bg = "white")
+        non_linear_vel_label = tk.Label(self.f1, image = non_linear_vel_pic, bg = "white")
 
         self.constant_vel_button = tk.Button(self.f1, text = "Run" )
         self.linear_vel_button = tk.Button(self.f1, text = "Run")
@@ -128,7 +120,7 @@ class resizeable_window:
             image_label_list[x].image= image_list[x]
             if (x ==0):
                 image_label_list[x].grid(row =7, column =x, sticky = tk.W , pady = (30, 8), padx =(20,0))  
-                image_button_list[x].grid(row =8, column =x, sticky = tk.W +tk.E, padx = (20, 80), pady=(0,20) ) 
+                image_button_list[x].grid(row =8, column =x, sticky = tk.W +tk.E, padx = (20, 85), pady=(0,20) ) 
             elif (x==1):
                 image_label_list[x].grid(row =7, column =x, sticky = tk.W , pady = (30,8), padx =(10,10))
                 image_button_list[x].grid(row =8, column =x, sticky = tk.W +tk.E, padx = (10,10), pady=(0,20) )
