@@ -4,6 +4,14 @@ from tkinter import ttk, font, messagebox
 
 
 
+def get_mouse_coordinates(mouse_click):
+    coordinates = (mouse_click.x, mouse_click.y)
+    return coordinates
+    
+def print_coordinates(mouse_click, label):
+    mouse_coordinates = get_mouse_coordinates(mouse_click)
+    label.config(text = str(mouse_coordinates))
+
 
 
 class resizeable_window:
@@ -56,7 +64,7 @@ class resizeable_window:
         etch_program_label = tk.Label(self.f1, text = "Etch Program", font = ('Avenir 24 bold'), fg = 'black', bg = 'white' )
         etch_program_label.grid(row =0, columnspan =3)
         #Label for the speed equatin
-        speed_label = tk.Label(self.f1, text = "Speed = " + u'ct\u00B2'+ " + bt + a ", font = ('Avenir 18 italic'), bg = "white")
+        speed_label = tk.Label(self.f1, text = "Speed = " + u'ct\u00B2'+ " + bt + a ", font = ('Avenir 18 italic'))
         speed_label.grid(row =1, columnspan=3, )
 
 
@@ -74,20 +82,20 @@ class resizeable_window:
         b_entryframe = tk.Frame(self.f1)
         c_entryframe = tk.Frame(self.f1)
         
-        self.fin_pos_entry = tk.Entry(fin_pos_entryframe)
-        self.init_pos_entry= tk.Entry(init_pos_entryframe)
-        self.a_entry = tk.Entry(a_entryframe)
-        self.b_entry = tk. Entry(b_entryframe)
-        self.c_entry = tk.Entry(c_entryframe)
+        fin_pos_entry = tk.Entry(fin_pos_entryframe)
+        init_pos_entry= tk.Entry(init_pos_entryframe)
+        a_entry = tk.Entry(a_entryframe)
+        b_entry = tk. Entry(b_entryframe)
+        c_entry = tk.Entry(c_entryframe)
 
 
         label_list = [init_pos_label, fin_pos_label, a_label, b_label, c_label]
-        entry_list = [self.init_pos_entry, self.fin_pos_entry, self.a_entry, self.b_entry, self.c_entry]
+        entry_list = [init_pos_entry, fin_pos_entry, a_entry, b_entry, c_entry]
         entryframe_list = [ fin_pos_entryframe, init_pos_entryframe, a_entryframe, b_entryframe, c_entryframe]
         labeltext_list = ["Initial Position", "Final Position", "A [mm/s]", "B [mm/s" + u'\u00B2'+ "]", "C [mm/s" + u'\u00B3'+ "]"]
        
-        def position_and_config_widget(label, borderframe, entrybox, labeltext, row, column, bg_color):
-            label.config(text = labeltext, font = ('Avenir 18'), bg = bg_color)
+        def position_and_config_widget(label, borderframe, entrybox, labeltext, row, column):
+            label.config(text = labeltext, font = ('Avenir 18'))
             label.grid(row=row, column = column, sticky = tk.W, padx =20)
             borderframe.config(bg = "Black", borderwidth =1)
             borderframe.grid(row = row, column = column +1, columnspan =2,sticky = tk.E, padx =20)
@@ -96,7 +104,7 @@ class resizeable_window:
 
 
         for x in range (0, 5):
-            position_and_config_widget(label_list[x], entryframe_list[x], entry_list[x], labeltext_list[x], (x+2), 0, "white")
+            position_and_config_widget(label_list[x], entryframe_list[x], entry_list[x], labeltext_list[x], (x+2), 0)
 
         
 
@@ -105,22 +113,22 @@ class resizeable_window:
         constant_vel_pic = tk.PhotoImage(file = "constant_vel.gif")
         linear_vel_pic = tk.PhotoImage(file = "linear_vel.gif")
         non_linear_vel_pic = tk.PhotoImage(file = "non_linear_vel.gif")
-        constant_vel_label = tk.Label(self.f1, image = constant_vel_pic, bg = "white")
-        linear_vel_label = tk.Label(self.f1, image = linear_vel_pic, bg = "white")
-        non_linear_vel_label = tk.Label(self.f1, image = non_linear_vel_pic, bg = "white")
+        constant_vel_label = tk.Label(self.f1, image = constant_vel_pic)
+        linear_vel_label = tk.Label(self.f1, image = linear_vel_pic)
+        non_linear_vel_label = tk.Label(self.f1, image = non_linear_vel_pic)
 
-        self.constant_vel_button = tk.Button(self.f1, text = "Run" )
-        self.linear_vel_button = tk.Button(self.f1, text = "Run")
-        self.non_linear_vel_button = tk.Button(self.f1, text = "Run")
+        constant_vel_button = tk.Button(self.f1, text = "Run", background = 'black' )
+        linear_vel_button = tk.Button(self.f1, text = "Run")
+        non_linear_vel_button = tk.Button(self.f1, text = "Run")
 
         image_list = [constant_vel_pic, linear_vel_pic, non_linear_vel_pic]
         image_label_list = [constant_vel_label, linear_vel_label, non_linear_vel_label]
-        image_button_list = [self.constant_vel_button, self.linear_vel_button, self.non_linear_vel_button]
+        image_button_list = [constant_vel_button, linear_vel_button, non_linear_vel_button]
         for x in range(0,3):
             image_label_list[x].image= image_list[x]
             if (x ==0):
                 image_label_list[x].grid(row =7, column =x, sticky = tk.W , pady = (30, 8), padx =(20,0))  
-                image_button_list[x].grid(row =8, column =x, sticky = tk.W +tk.E, padx = (20, 85), pady=(0,20) ) 
+                image_button_list[x].grid(row =8, column =x, sticky = tk.W +tk.E, padx = (20,35), pady=(0,20) ) 
             elif (x==1):
                 image_label_list[x].grid(row =7, column =x, sticky = tk.W , pady = (30,8), padx =(10,10))
                 image_button_list[x].grid(row =8, column =x, sticky = tk.W +tk.E, padx = (10,10), pady=(0,20) )
@@ -132,41 +140,51 @@ class resizeable_window:
         movement_speed_label = tk.Label(self.f2, background = '#CECECE')
         movement_speed_entryframe = tk.Frame(self.f2)
         # speed_label.grid(row =0, column =0)
-        self.movement_speed_entry_box = tk.Entry(movement_speed_entryframe)
+        movement_speed_entry_box = tk.Entry(movement_speed_entryframe)
         # speed_entry_box.grid(row =0, column =1)
         
-        position_and_config_widget(movement_speed_label, movement_speed_entryframe, self.movement_speed_entry_box, "Speed (mm/s)", 0,0, "#CECECE")
+        position_and_config_widget(movement_speed_label, movement_speed_entryframe, movement_speed_entry_box, "Speed", 0,0)
 
         tentop = tk.PhotoImage(file = "ten_top.png")
-        self.pos_ten_button = tk.Label(self.f2, text = "10", image = tentop)
-        self.pos_ten_button.image = tentop
+        pos_ten_button = tk.Label(self.f2, text = "10", image = tentop)
+        pos_ten_button.image = tentop
 
         onetop = tk.PhotoImage(file = "one_top.png")
-        self.pos_one_button = tk.Label(self.f2, text = "1", image = onetop)
-        self.pos_one_button.image = onetop
+        pos_one_button = tk.Label(self.f2, text = "1", image = onetop)
+        pos_one_button.image = onetop
        
         tenthtop = tk.PhotoImage(file = "tenth_top.png")
-        self.pos_tenth_button = tk.Label(self.f2, text = "0.1", image = tenthtop)
-        self.pos_tenth_button.image = tenthtop
+        pos_tenth_button = tk.Label(self.f2, text = "0.1", image = tenthtop)
+        pos_tenth_button.image = tenthtop
 
 
         home_image = tk.PhotoImage(file ="homebutton.png")
-        self.home_button = tk.Label(self.f2, text = "Home", image = home_image)
-        self.home_button.image=home_image
+        home_button = tk.Label(self.f2, text = "Home", image = home_image)
+        home_button.image=home_image
 
         tenthbottom = tk.PhotoImage(file = "tenth_bottom.png")
-        self.neg_tenth_button = tk.Label(self.f2, text = "-10", image = tenthbottom)
-        self.neg_tenth_button.image = tenthbottom
+        neg_tenth_button = tk.Label(self.f2, text = "-10", image = tenthbottom)
+        neg_tenth_button.image = tenthbottom
 
         onebottom = tk.PhotoImage(file = "one_bottom.png")
-        self.neg_one_button = tk.Label(self.f2, text = "-1", image = onebottom)
-        self.neg_one_button.image = onebottom
+        neg_one_button = tk.Label(self.f2, text = "-1", image = onebottom)
+        neg_one_button.image = onebottom
 
         tenbottom = tk.PhotoImage(file = "ten_bottom.png")
-        self.neg_ten_button = tk.Label(self.f2, text = "-0.1", image = tenbottom)
-        self.neg_ten_button.image  = tenbottom
+        neg_ten_button = tk.Label(self.f2, text = "-0.1", image = tenbottom)
+        neg_ten_button.image  = tenbottom
+        # movement_label_list = [pos_ten_button, pos_one_button, pos_tenth_button, home_button, neg_tenth_button, neg_one_button, neg_ten_button]
+        # image_name_list = ["ten_top.png", "one_top.png", "tenth_top.png", "homebutton.png", "tenth_bottom.png", "one_bottom.png", "ten_bottom.png"]
+        # image_object_list= [tenttop, onetop, tenthtop, home_image, tenthbottom, onebottom, tenbottom]
 
-        button_list = [self.pos_ten_button, self.pos_one_button, self.pos_tenth_button, self.home_button, self.neg_tenth_button, self.neg_one_button, self.neg_ten_button]
+        # for index, iter in enumerate(movement_label_list):
+        #     image_object_list[index]=tk.PhotoImage(file = image_name_list[index])
+        #     iter.config(image = image_object_list[index])
+        #     iter.image = image_object_list[x]
+
+
+
+        button_list = [pos_ten_button, pos_one_button, pos_tenth_button, home_button, neg_tenth_button, neg_one_button, neg_ten_button]
 
         for index, button in enumerate(button_list):
             button.config(background ='#CECECE')
@@ -208,11 +226,8 @@ class resizeable_window:
 
 
 root = tk.Tk()
-root.resizable(0,0)
 # for names in sorted(tk.font.families()):
 #     print(names)
 #print(u'  change = (ct\u00B2)')
-mw = resizeable_window(root)
+main_window = resizeable_window(root)
 tk.mainloop()
-
-
