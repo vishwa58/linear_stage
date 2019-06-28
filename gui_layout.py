@@ -1,6 +1,10 @@
+#This program was created by Vishwa Nathan (vnathan@umich.edu) on June 28, 2019
+
+
+#THIS FIELE CONTAINS ALL THE INFORMATION PERTAINING TO THE LAYOUT OF THE FRONTEND GUI. IT WAS CREATED USING THE TKINTER LIBRARY  BUILT INTO PYTHON
 import tkinter as tk
 from tkinter import ttk, font, messagebox
-# from PIL import ImageTk, Image
+
 
 
 
@@ -134,9 +138,9 @@ class resizeable_window:
 
         movement_speed_label = tk.Label(self.f2, background = '#CECECE')
         movement_speed_entryframe = tk.Frame(self.f2)
-        # speed_label.grid(row =0, column =0)
+
         self.movement_speed_entry_box = tk.Entry(movement_speed_entryframe)
-        # speed_entry_box.grid(row =0, column =1)
+
         
         position_and_config_widget(movement_speed_label, movement_speed_entryframe, self.movement_speed_entry_box, "Speed (mm/s)", 0,0, "#CECECE")
 
@@ -178,32 +182,10 @@ class resizeable_window:
 
 
 
-
-
-
-
-
-
-        # Use second frame to add a button for homing and ther such shenanigans
-        # movement_canvas = tk.Canvas(self.f2, width = 247, height = 248, bg = "#00274C", relief = "flat")
-        # movement_canvas.grid(row =0, column =0)
-        # mainbutton_image = tk.PhotoImage(file ="printrun_button.png")
-        # self.f2.mainbutton_image= mainbutton_image
-        # canvas_image = movement_canvas.create_image(0,0, image = mainbutton_image, anchor = "nw")
-        # test_label = tk.Label(self.f2, text = "potato")
-        # test_label.grid(row =1, column =0)
-
-        # movement_canvas.bind("<Button-1>", lambda event:print_coordinates(event, test_label))
-
-
-
         
 
 
-        
-
-        # other_label = tk.Label(self.f2, text = "Constant Speed Movement", font = ('Avenir 24 bold'))
-        # other_label.grid(row =0, column =0)
+    
         
 
 
@@ -212,9 +194,6 @@ class resizeable_window:
 
 root = tk.Tk()
 root.resizable(0,0)
-# for names in sorted(tk.font.families()):
-#     print(names)
-#print(u'  change = (ct\u00B2)')
 mw = resizeable_window(root)
 
 

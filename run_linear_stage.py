@@ -1,3 +1,8 @@
+#This program was created by Vishwa Nathan (vnathan@umich.edu) on June 28, 2019
+
+
+#THIS FILE CONTAINS THHE COMMANDS THHAT ALLOW THE BUTTONS ON THE GUI TO WORK
+
 from gui_layout import *
 from linear_stage_functions import *
 from motor_constants import *

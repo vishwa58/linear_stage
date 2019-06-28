@@ -1,16 +1,16 @@
-# This file contains all of the functions that allow the motor to be controlled
+#This program was created by Vishwa Nathan (vnathan@umich.edu) on June 28, 2019
+
+
+# THIS FILE CONTAINS ALL THE BACKEND FUNCTIONS THAT CALCULATE THE VELOCITYT OF THE LINEAR STAGE AND ALLOW IT TO MOVE
 
 
 from time import sleep #imports sleep function
 import RPi.GPIO as GPIO #allows for use of GPIO pins
-from math import log #allows for log
+from math import log #allows for logarithm function
 GPIO.setwarnings(False) #Turns off unnecessary warnings provided by Raspberry Pi
 
 GPIO.setmode(GPIO.BCM) #uses BCM mode for pin layout (Don't change)
 
-#sets up the limitswitch as an input pin and sets its default statw to untriggered
-
-#GPIO.setup(LIMITSWITCH, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 
 #STEPPER MOTOR CLASS
 
@@ -20,27 +20,27 @@ GPIO.setmode(GPIO.BCM) #uses BCM mode for pin layout (Don't change)
 
 class stepper:
     def __init__(self, step_angle, screw_pitch, pulse_pin, dir_pin, msteps):
-        # self.step_angle = float(step_angle)
         self.screw_pitch = float(screw_pitch)
         self.pulse_pin = int(pulse_pin)
         self.dir_pin = int(dir_pin)
-        # self.msteps = int(msteps)
         self.steps_per_rev = int((360/step_angle)*msteps)
         GPIO.setup(int(pulse_pin), GPIO.OUT)
         GPIO.setup(int(dir_pin), GPIO.OUT)
 
 
 
-#helper functioon to calculate change in position
+#helper function to calculate overall change in position from the starting point to the final point
 def delta_position(final_position, initial_position):
     return (abs(final_position-initial_position))
 
+#returns the nbumber oof rotations the stepper motor will make to travel the total distance
 def calculate_rotations(mystepper, initial_position, final_position):
     delta_pos = delta_position(final_position,initial_position) #calculates distance the stage must move
-    num_rotations = delta_pos/(mystepper.screw_pitch) #divides the total distance by the screw pitch to aquire the proper number of rotations
+    num_rotations = delta_pos/(mystepper.screw_pitch) #divides the total distance by the screw pitch to aquire the number of rotations he stepper will make
     return num_rotations
 
-#Creates a list of every position that the linear stage will be at       
+#Creaets a list of ever stepper motor position. It takes the total number of rotations thhat the stepper motor travels and divides them into individual steps. 
+#Then it stores the distance the stage will move per step in a vector  
 def create_Yc_vector(initial_position, final_position, mystepper):
     total_rotations = calculate_rotations(mystepper, initial_position, final_position) #calculates rotations
     num_steps = int(total_rotations * mystepper.steps_per_rev) #calculates number of total steps by multiplying num rotations by steps per rotation
@@ -49,18 +49,19 @@ def create_Yc_vector(initial_position, final_position, mystepper):
     for i in range (1, num_steps):
         position_list.append(i*mm_per_step)#converts steps to mm, so the math is based on mm not steps
     return position_list
-#Create the velocity vectors
+
+#Create a list which holds the stage's velocity at each step
 def create_velocity_vector(const_a, const_b , const_c , position_list):
         velocity_list = []
         for i in range (len(position_list)):
-                v = float(const_c)*(position_list[i]**2)+ float(const_b)*position_list[i]+float(const_a)
-                velocity_list.append(v)
+                v = float(const_c)*(position_list[i]**2)+ float(const_b)*position_list[i]+float(const_a) #calculates velocity based on the equation ct^2+bt+a
+                velocity_list.append(v) #adds the velocity to the list.
         return velocity_list
-#Helper function for create_delay vector
-#Calculates the pulse delay which in turn controls the speed og the motor.
+
+#Calculates the pulse delay which in turn controls the speed of the motor.
 #Based on this equation
         #Linear velocity = (screw pitch * pulse_frequency)/ (steps per revolution of stepper motor)
-#Rearranged to solve for pulse pulse_frequency
+#Rearranged to solve for  pulse_frequency
 #delay = 1/pulse frequency
 def calculate_delay(linear_velocity, mystepper):
     numerator = linear_velocity * mystepper.steps_per_rev 
@@ -74,20 +75,23 @@ def create_delay_vector(velocity_vector,mystepper):
     for i in range (len(velocity_vector)):
         delay_vector.append(calculate_delay(velocity_vector[i], mystepper)) #calculates the delay necessary for a lirear velocityy at that speed
     return delay_vector
-#Moves the motor one step (helper function)
 
+#Moves the motor one step (helper function)
 def runmotor(mystepper, delay, direction):
     GPIO.output(mystepper.dir_pin, direction) #sets direction of motor
-    GPIO.output(mystepper.pulse_pin,1) 
+    GPIO.output(mystepper.pulse_pin,1) #sends a pulse to the motor to mve one step
     sleep(delay) 
-    GPIO.output(mystepper.pulse_pin,0) 
+    GPIO.output(mystepper.pulse_pin,0) #turns off motor
     sleep(delay)
+
+    #This function utilizes the previous functions to actually move the stage
 def move_linear_stage(initial_position, final_position, mystepper, const_a, const_b, const_c, direction):
-        position_vector = create_Yc_vector(float(initial_position), float(final_position), mystepper)
-        vel_vector = create_velocity_vector(float(const_a), float(const_b), float(const_c), position_vector)
-        del_vector = create_delay_vector(vel_vector,mystepper)
+        position_vector = create_Yc_vector(float(initial_position), float(final_position), mystepper) #creates a list of the stages position from home for each step
+        vel_vector = create_velocity_vector(float(const_a), float(const_b), float(const_c), position_vector) #calculates the stage's velocityy at each step
+        del_vector = create_delay_vector(vel_vector,mystepper) #converts thhe velocity vector into delays thhat the motor uses for speed
+        #The loop is used t move the motor one step until it has reached its final position
         for i in range(len(del_vector)):
-                runmotor(mystepper, del_vector[i], direction)
+                runmotor(mystepper, del_vector[i], direction) #
 
 
 #wrapper function that allows has an input for the distance (used for the move buttons in the gui)       
@@ -96,12 +100,13 @@ def movedistance(mystepper, delay, direction, distance):
         runmotor(mystepper, delay, direction)
 
 
-# s the linear stage towards the endstop and then moves it four full revolutions away from the endstop to prevent retriggering
+# Homes the linear stage towards the endstop and then moves it four full revolutions away from the endstop to prevent retriggering. 
+# Only used if the stage has an endstop
 def home(mystepper, limitswitch_pin, home_speed, direction):
     while(GPIO.input(limitswitch_pin)==True): #run the motor while the endstop is not pressed
         runmotor(mystepper, home_speed, direction)
-    GPIO.output(mystepper.pulse_pin, 0)
-    if (direction ==1):
+    GPIO.output(mystepper.pulse_pin, 0) 
+    if (direction ==1): #Changes the direction
         direction =0
     else:
         direction =1
