@@ -10,7 +10,7 @@ class resizeable_window:
     def __init__(self, parent):
         self.parent = parent
         self.parent.configure(background = '#CECECE') #00274c, D0D0D0 FFCB05
-        self.parent.geometry("1080x750")
+        self.parent.geometry("1280x750")
         self.parent.title("Microfluidic Etch Program")
 
 
