@@ -50,7 +50,10 @@ class resizeable_window:
         logo = tk.PhotoImage(file ="group_logo_text.png")
         logo_label = tk.Label(self.parent, image = logo, bg = '#CECECE' )
         logo_label.image = logo
-        logo_label.grid(row =2, column =6)
+        logo_label.grid(row =2, column =1, columnspan =2)
+
+        name_label = tk.Label(self.parent, text = "By Vishwa Nathan (vnathan@umich.edu)", bg = '#CECECE', font = ('Avenir 18 bold') )
+        name_label.grid(row =2, column =6, pady=(75,0), padx = (50,0))
 
         #Adding widgets for frame 1
         etch_program_label = tk.Label(self.f1, text = "Etch Program", font = ('Avenir 24 bold'), fg = 'black', bg = 'white' )
@@ -213,6 +216,6 @@ root.resizable(0,0)
 #     print(names)
 #print(u'  change = (ct\u00B2)')
 mw = resizeable_window(root)
-tk.mainloop()
+
 
 

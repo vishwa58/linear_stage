@@ -41,13 +41,13 @@ mw.constant_vel_button.config(command = lambda:run_etch_program(mw.init_pos_entr
 mw.linear_vel_button.config (command = lambda:run_etch_program(mw.init_pos_entry.get(), mw.fin_pos_entry.get(), STAGE_MOTOR, mw.a_entry.get(), mw.b_entry.get(),0))
 mw.non_linear_vel_button.config(command = lambda:run_etch_program(mw.init_pos_entry.get(), mw.fin_pos_entry.get(), STAGE_MOTOR, mw.a_entry.get(), mw.b_entry.get(),mw.c_entry.get()))
 
-mw.pos_ten_button.bind("<Button-1>",  lambda a: move_linear_stage(10, 0, STAGE_MOTOR, float(mw.movement_speed_entry_box.get()), 0, 0, HOME_DIRECTION))
-mw.pos_one_button.bind("<Button-1>",  lambda a: move_linear_stage(1, 0, STAGE_MOTOR, float(mw.movement_speed_entry_box.get()), 0, 0, HOME_DIRECTION))
-mw.pos_tenth_button.bind("<Button-1>",  lambda a: move_linear_stage(0.1, 0, STAGE_MOTOR, float(mw.movement_speed_entry_box.get()), 0, 0, HOME_DIRECTION))
+mw.pos_ten_button.bind("<Button-1>",  lambda a: move_linear_stage(10, 0, STAGE_MOTOR, mw.movement_speed_entry_box.get(), 0, 0, HOME_DIRECTION))
+mw.pos_one_button.bind("<Button-1>",  lambda a: move_linear_stage(1, 0, STAGE_MOTOR, mw.movement_speed_entry_box.get(), 0, 0, HOME_DIRECTION))
+mw.pos_tenth_button.bind("<Button-1>",  lambda a: move_linear_stage(0.1, 0, STAGE_MOTOR,mw.movement_speed_entry_box.get(), 0, 0, HOME_DIRECTION))
 
-mw.neg_ten_button.bind("<Button-1>",  lambda a: move_linear_stage(10, 0, STAGE_MOTOR, float(mw.movement_speed_entry_box.get()), 0, 0, ETCHANT_DIRECTION))
-mw.neg_one_button.bind("<Button-1>",  lambda a: move_linear_stage(1, 0, STAGE_MOTOR, float(mw.movement_speed_entry_box.get()), 0, 0, ETCHANT_DIRECTION))
-mw.neg_tenth_button.bind("<Button-1>",  lambda a: move_linear_stage(0.1, 0, STAGE_MOTOR, float(mw.movement_speed_entry_box.get()), 0, 0, ETCHANT_DIRECTION))
+mw.neg_ten_button.bind("<Button-1>",  lambda a: move_linear_stage(10, 0, STAGE_MOTOR, mw.movement_speed_entry_box.get(), 0, 0, ETCHANT_DIRECTION))
+mw.neg_one_button.bind("<Button-1>",  lambda a: move_linear_stage(1, 0, STAGE_MOTOR, mw.movement_speed_entry_box.get(), 0, 0, ETCHANT_DIRECTION))
+mw.neg_tenth_button.bind("<Button-1>",  lambda a: move_linear_stage(0.1, 0, STAGE_MOTOR, mw.movement_speed_entry_box.get(), 0, 0, ETCHANT_DIRECTION))
 
 mw.home_button.bind("<Button-1>", lambda x: run_home(STAGE_MOTOR, LIMITSWITCH, HOMING_SPEED, HOME_DIRECTION))
 

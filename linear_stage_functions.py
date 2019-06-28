@@ -83,14 +83,11 @@ def runmotor(mystepper, delay, direction):
     GPIO.output(mystepper.pulse_pin,0) 
     sleep(delay)
 def move_linear_stage(initial_position, final_position, mystepper, const_a, const_b, const_c, direction):
-        position_vector = create_Yc_vector(initial_position, final_position, mystepper)
-        vel_vector = create_velocity_vector(const_a, const_b, const_c, position_vector)
+        position_vector = create_Yc_vector(float(initial_position), float(final_position), mystepper)
+        vel_vector = create_velocity_vector(float(const_a), float(const_b), float(const_c), position_vector)
         del_vector = create_delay_vector(vel_vector,mystepper)
         for i in range(len(del_vector)):
                 runmotor(mystepper, del_vector[i], direction)
-
-
-
 
 
 #wrapper function that allows has an input for the distance (used for the move buttons in the gui)       
@@ -111,10 +108,7 @@ def home(mystepper, limitswitch_pin, home_speed, direction):
     
     movedistance(mystepper, home_speed*2, direction, 4*mystepper.steps_per_rev) #to move away from the endstoop
 
-   
 
-#This function calculates the number of rotations the stepper motor will have to make in order to move the linear stage from
-#the initial position to the final position
 
 
 
@@ -122,63 +116,6 @@ def home(mystepper, limitswitch_pin, home_speed, direction):
 
 
     
-
-
-
-
-#Creates a velocity vector when the velocity is constant
-
-
-#creates a list that holds all the potential velocity values when the linear stage is moving at constant velocity
-#uses the equation v = ax+b (x is in mm and it is from the position list created in a different function)
-# def create_linear_velocity_vector(const_a, const_b, position_list):
-#     velocity_list = []
-#     for i in range (len(position_list)):
-#         v=const_a * position_list[i] + const_b
-#         velocity_list.append(v)
-#     return velocity_list      
-
-
-#creates a list that holds all the potential velocity values when the linear stage is moving at constant velocity
-#uses the equation v = ax^2+bx+c (x is in mm and it is from the position list created in a different function)
-# def create_nonlinear_velocity_vector(const_a, const_b, const_c, position_list):
-#     velocity_list = []
-#     for i in range (len(position_list)):
-#         v = const_a*((position_list[i])**2) + const_b*position_list[i]+ const_c
-#         velocity_list.append(v)
-#     return velocity_list
-
-
-
-#These three functions serve the same purpose. They are the driver functions that actually allow the motor to move at 
-# no acceleration, constant acceleration and linear acceleration
-#First a list is created that holds the linea stage's position in regards to home at each step.
-#Second a list is created that stores the velocity at each of these positions. This step is skipped when there is no acceleration since velocity is constant
-#Then each velocity is converted into a delay so the stepper motor knows how long it should wait for it to turn at a certain velocity
-#Finally the motor runs at a speed depending on the value found in the delay list
-
-# def run_motor_no_acceleration(initial_position, final_position, mystepper, const_a, direction):
-#     position_list =create_Yc_vector(initial_position, final_position, mystepper)
-#     const_delay = calculate_delay(const_a, mystepper)
-#     for i in range (len(position_list)):
-#         runmotor(mystepper, const_delay, direction)
-# def run_motor_constant_acceleration(initial_position, final_position, const_a, const_b, mystepper, direction):
-#     position_vector = create_Yc_vector(initial_position, final_position, mystepper)
-#     velocity_vector = create_linear_velocity_vector(const_a, const_b, position_vector)
-#     del_vector = create_delay_vector(velocity_vector, mystepper)
-#     for i in range(len(del_vector)):
-#         runmotor(mystepper, del_vector[i], direction)   
-# def run_motor_linear_acceleration(inital_position, final_position, const_a, const_b, const_c, mystepper, direction):
-#     position_vector = create_Yc_vector(inital_position,final_position,mystepper)
-#     vel_vector = create_constant_jerk_vector(const_a, const_b,const_c, position_vector)
-#     del_vector = create_delay_vector(vel_vector,mystepper)
-#     for i in range(len(del_vector)):
-#         runmotor(mystepper, del_vector[i], direction)
-
-
-
-
-
 
 
 
