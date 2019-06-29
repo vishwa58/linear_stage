@@ -147,7 +147,7 @@ class window:
         #The below commands pertain to the left hand frame
 
         #Creates the speed label and entry box for the movement buttons
-        movement_speed_label = tk.Label(self.f2, background = '#CECECE') #
+        movement_speed_label = tk.Label(self.f2, background = '#CECECE') 
         movement_speed_entryframe = tk.Frame(self.f2)
 
         self.movement_speed_entry_box = tk.Entry(movement_speed_entryframe)
