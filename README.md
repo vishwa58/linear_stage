@@ -15,6 +15,17 @@ The user has a working Raspberry Pi with Python 3 installed
 The user has read the "Variable Speed Linear Stage Software and Electronics Documentation" if they intend to utilize the hardware found in this project as well
 
 ```
+## Contents
+
+The following code is broken up into 4 major files
+1. linear_stage_functions.py 
+    This file contains all the helper functions that interface with the hardware to control the linear stage. If the user is only trying to run the linear stage, this file should not be changed.
+2. motor_constants.py
+    This file contains all the constants related to the hardware as well as some software constants. Information regarding Raspberry Pi GPIO pins are          found here. The user is welcome to change the information found in this file to suit their needs.
+3. gui_layout.py
+    This file uses the tkinter library and contains the code for the user interface. If the user is only trying to run the linear stage, this file should not    be changed.
+4. run_linear_stage.py
+    This file contains the code that links the backend and the frontend of the linear stage code. If the user is only trying to run the linear stage, this file should not be changed.
 
 ## Installing
 
@@ -33,35 +44,19 @@ The user has read the "Variable Speed Linear Stage Software and Electronics Docu
 cd ~
 cd Documents/linear-stage-master/
 ```
-
-
-For a more complete guide including images, please refer to "Variable Speed Linear Stage Software and Electronics Documentation" 
-
-
-## Contents
-
-The following code is broken up into 4 major files
-1. linear_stage_functions.py 
-
-    This file contains all the helper functions that interface with the hardware to control the linear stage. If the user is only trying to run the linear stage, this file should not be changed.
-2. motor_constants.py
-
-    This file contains all the constants related to the hardware as well as some software constants. Information regarding Raspberry Pi GPIO pins are          found here. The user is welcome to change the information found in this file to suit their needs.
-3. gui_layout.py
-
-    This file uses the tkinter library and contains the code for the user interface. If the user is only trying to run the linear stage, this file should not    be changed.
-4. run_linear_stage.py
-
-    This file contains the code that links the backend and the frontend of the linear stage code. If the user is only trying to run the linear stage, this file should not be changed.
-
-##Running the Program
-
-1. To run the linear stage, type the following command into the terminal. (Assuming the user has already navigated to the working directory). Make sure to use the python3 command and not python.
+7. To run the linear stage, type the following command into the terminal. (Assuming the user has already navigated to the working directory). Make sure to use the python3 command and not python.
 
 ```
 python3 run_linear_stage.py
 
 ```
+
+For a more complete guide including images, please refer to "Variable Speed Linear Stage Software and Electronics Documentation" 
+
+
+
+
+
 
 
 ## Built With
