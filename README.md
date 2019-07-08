@@ -54,11 +54,7 @@ python3 run_linear_stage.py
 For a more complete guide including images, please refer to "Variable Speed Linear Stage Software and Electronics Documentation" 
 
 
-
-
-
-
-
+ 
 ## Built With
 
 * [Tkinter](https://docs.python.org/3/library/tkinter.html) - The python framework used for the user interface.

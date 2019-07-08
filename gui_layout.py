@@ -7,7 +7,7 @@ from tkinter import ttk, font, messagebox
 
 
 
-#cerates a window class whihch holds all of the information for tthe gui
+#creates a window class which holds all of the information for the gui
 
 
 class window:
@@ -86,7 +86,7 @@ class window:
         self.b_entry = tk. Entry(b_entryframe)
         self.c_entry = tk.Entry(c_entryframe)
 
-`       #Stores all the labels and entrty boxes from frame one into a list so they can be easily positioned using one function`
+        #Stores all the labels and entrty boxes from frame one into a list so they can be easily positioned using one function
         label_list = [init_pos_label, fin_pos_label, a_label, b_label, c_label]
         entry_list = [self.init_pos_entry, self.fin_pos_entry, self.a_entry, self.b_entry, self.c_entry]
         entryframe_list = [ fin_pos_entryframe, init_pos_entryframe, a_entryframe, b_entryframe, c_entryframe]
@@ -201,6 +201,8 @@ class window:
 root = tk.Tk()
 root.resizable(0,0)
 mw = window(root)
+
+tk.mainloop()
 
 
 
