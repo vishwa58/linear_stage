@@ -40,8 +40,6 @@ def run_home(mymotor, limitswitch, homingspeed, direction):
 
 
 
-
-
 mw.constant_vel_button.config(command = lambda:run_etch_program(mw.init_pos_entry.get(), mw.fin_pos_entry.get(), STAGE_MOTOR, mw.a_entry.get(), 0,0))
 mw.linear_vel_button.config (command = lambda:run_etch_program(mw.init_pos_entry.get(), mw.fin_pos_entry.get(), STAGE_MOTOR, mw.a_entry.get(), mw.b_entry.get(),0))
 mw.non_linear_vel_button.config(command = lambda:run_etch_program(mw.init_pos_entry.get(), mw.fin_pos_entry.get(), STAGE_MOTOR, mw.a_entry.get(), mw.b_entry.get(),mw.c_entry.get()))
