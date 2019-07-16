@@ -202,7 +202,7 @@ root = tk.Tk()
 root.resizable(0,0)
 mw = window(root)
 
-tk.mainloop()
+
 
 
 
