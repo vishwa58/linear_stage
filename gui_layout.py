@@ -153,7 +153,7 @@ class window:
         self.movement_speed_entry_box = tk.Entry(movement_speed_entryframe)
 
         
-        position_and_config_widget(movement_speed_label, movement_speed_entryframe, self.movement_speed_entry_box, "Speed (mm/s)", 0,0, "#CECECE")
+        position_and_config_widget(movement_speed_label, movement_speed_entryframe, self.movement_speed_entry_box, "Speed", 0,0, "#CECECE")
 
         #These create the movement buttons and import their images.
         tentop = tk.PhotoImage(file = "ten_top.png")
@@ -203,7 +203,7 @@ root = tk.Tk()
 #root.resizable(0,0)
 mw = window(root)
 #tk.mainloop()
-
+#root.attributes('-fullscreen', True)
 
 
 
