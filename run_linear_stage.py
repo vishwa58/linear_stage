@@ -1,14 +1,14 @@
 #This program was created by Vishwa Nathan (vnathan@umich.edu) on June 28, 2019
 
 
-#THIS FILE CONTAINS THHE COMMANDS THHAT ALLOW THE BUTTONS ON THE GUI TO WORK
+#THIS FILE CONTAINS THHE COMMANDS THAT ALLOW THE BUTTONS ON THE GUI TO WORK
 
 from gui_layout import *
 from linear_stage_functions import *
 from motor_constants import *
 
 
-#constructs the stepper mottor  class that wll be used. All oft these valuees can be found/changed in the file motor_constants.py. 
+#constructs the stepper motor class that will be used. All of these values can be found/changed in the file motor_constants.py. 
 #The constructor for the motor can be found in linear_stage_functions.py
 STAGE_MOTOR = stepper(STEP_ANGLE, SCREW_PITCH, PULSE_PIN, DIR_PIN, MICROSTEPS_PER_STEP)
 
@@ -19,13 +19,15 @@ def run_etch_program(initial_position, final_position, mystepper, const_a, const
     global HOME_DIRECTION
     global ENDSTOP_ENABLED
     global HOMING_SPEED
-   # velocity profile is a functor that will be replaced by a value when bound to an actual button
+    #See linear_stage_functions for more information on the following function
     move_linear_stage(float(initial_position), float(final_position), mystepper, float(const_a), float(const_b), float(const_c), ETCHANT_DIRECTION)
-    if(ENDSTOP_ENABLED==True):
-        home(mystepper, LIMITSWITCH, HOMING_SPEED, HOME_DIRECTION)
-    else:
-        homing_velocity = mystepper.screw_pitch/(HOMING_SPEED*mystepper.steps_per_rev)
-        move_linear_stage(float(initial_position), float(final_position)+50, mystepper, float(homing_velocity), 0, 0, HOME_DIRECTION)
+    
+    #re-comment the following code if you would like to utilize homing
+    # if(ENDSTOP_ENABLED==True):
+    #     home(mystepper, LIMITSWITCH, HOMING_SPEED, HOME_DIRECTION)
+    # else:
+    #     homing_velocity = mystepper.screw_pitch/(HOMING_SPEED*mystepper.steps_per_rev)
+    #     move_linear_stage(float(initial_position), float(final_position)+50, mystepper, float(homing_velocity), 0, 0, HOME_DIRECTION)
 
 
 #This function will home the linear stage if an endstop is present
@@ -35,7 +37,7 @@ def run_home(mymotor, limitswitch, homingspeed, direction):
     if(ENDSTOP_ENABLED==True):
         home(mymotor, limitswitch, homingspeed, direction)
     else:
-        print("oops")
+        print("set ENDSTOP_ENABLED to true if you would like to utilize homing")
 
 
 
