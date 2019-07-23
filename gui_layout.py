@@ -202,7 +202,7 @@ class window:
 root = tk.Tk()
 #root.resizable(0,0)
 mw = window(root)
-tk.mainloop()
+#tk.mainloop()
 root.attributes('-fullscreen', True)
 
 
