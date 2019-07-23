@@ -1,7 +1,7 @@
 #This program was created by Vishwa Nathan (vnathan@umich.edu) on June 28, 2019
 
 
-#THIS FILE CONTAINS ALL THE INFORMATION PERTAINING TO THE LAYOUT OF THE FRONTED GUI. IT WAS CREATED USING THE TKINTER LIBRARY BUILT INTO PYTHON
+#THIS FILE CONTAINS ALL THE INFORMATION PERTAINING TO THE LAYOUT OF THE  GUI. IT WAS CREATED USING THE TKINTER LIBRARY BUILT INTO PYTHON
 import tkinter as tk
 from tkinter import ttk, font, messagebox
 
@@ -86,7 +86,7 @@ class window:
         self.b_entry = tk. Entry(b_entryframe)
         self.c_entry = tk.Entry(c_entryframe)
 
-        #Stores all the labels and entrty boxes from frame one into a list so they can be easily positioned using one function
+        #Stores all the labels and entrry boxes from frame one into a list so they can be easily positioned using one function
         label_list = [init_pos_label, fin_pos_label, a_label, b_label, c_label]
         entry_list = [self.init_pos_entry, self.fin_pos_entry, self.a_entry, self.b_entry, self.c_entry]
         entryframe_list = [ fin_pos_entryframe, init_pos_entryframe, a_entryframe, b_entryframe, c_entryframe]
@@ -99,7 +99,7 @@ class window:
             label.grid(row=row, column = column, sticky = tk.W, padx =20) #sets the labels' rows and columns
             borderframe.config(bg = "Black", borderwidth =1) #Allows the enttry boxes to have a black frame
             borderframe.grid(row = row, column = column +1, columnspan =2,sticky = tk.E, padx =20) #positions the background frame behind the entry box
-            #Sets the relief to flat and positioons it inside the entry box frame
+            #Sets the relief to flat and positions it inside the entry box frame
             entrybox.config(relief="flat", highlightthickness=0) 
             entrybox.grid(row =0, column =0)
 
@@ -118,7 +118,7 @@ class window:
         constant_vel_label = tk.Label(self.f1, image = constant_vel_pic, bg = "white")
         linear_vel_label = tk.Label(self.f1, image = linear_vel_pic, bg = "white")
         non_linear_vel_label = tk.Label(self.f1, image = non_linear_vel_pic, bg = "white")
-        #These commands create the run butttons found below the image
+        #These commands create the run buttons found below the image
         self.constant_vel_button = tk.Button(self.f1, text = "Run" )
         self.linear_vel_button = tk.Button(self.f1, text = "Run")
         self.non_linear_vel_button = tk.Button(self.f1, text = "Run")
@@ -144,7 +144,7 @@ class window:
 
 
 
-        #The below commands pertain to the left hand frame
+        #The following commands pertain to the left hand frame
 
         #Creates the speed label and entry box for the movement buttons
         movement_speed_label = tk.Label(self.f2, background = '#CECECE') 
