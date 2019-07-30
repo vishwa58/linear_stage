@@ -13,7 +13,7 @@ from tkinter import ttk, font, messagebox
 class window:
     def __init__(self, parent):
         self.parent = parent 
-        self.parent.configure(background = '#CECECE') #sets grey bg
+        self.parent.configure(background = 'black') #sets grey bg
         self.parent.geometry("1280x750") #ses default window size
         self.parent.title("Microfluidic Etch Program")#sets tittle
 
@@ -201,6 +201,7 @@ class window:
 root = tk.Tk()
 root.resizable(0,0)
 mw = window(root)
+tk.mainloop()
 
 
 
