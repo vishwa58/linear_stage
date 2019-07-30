@@ -1,4 +1,4 @@
-#This program was created by Vishwa Nathan (vnathan@umich.edu) on June 28, 2019
+#This program was created by Vishwa Nathan (vnathan@umich.edu) on July 30, 2019
 
 
 #THIS FILE CONTAINS ALL THE INFORMATION PERTAINING TO THE LAYOUT OF THE  GUI. IT WAS CREATED USING THE TKINTER LIBRARY BUILT INTO PYTHON
@@ -201,7 +201,7 @@ class window:
 root = tk.Tk()
 root.resizable(0,0)
 mw = window(root)
-tk.mainloop()
+tk.mainloop
 
 
 
