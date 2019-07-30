@@ -194,7 +194,7 @@ class window:
 
         for index, button in enumerate(button_list):
             button.config(background ='#CECECE')
-            button.grid(row =index+1,  sticky =  tk.W+ tk.E, columnspan =2)
+            button.grid(row =index+1,  sticky =  tk.W+ tk.E, columnspan =2, )
 
 
 
