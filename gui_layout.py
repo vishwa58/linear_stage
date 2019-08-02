@@ -1,4 +1,6 @@
-#This program was created by Vishwa Nathan (vnathan@umich.edu) on July 30, 2019
+
+
+#This program was created by Vishwa Nathan (vnathan@umich.edu) on June 29, 2019
 
 
 #THIS FILE CONTAINS ALL THE INFORMATION PERTAINING TO THE LAYOUT OF THE  GUI. IT WAS CREATED USING THE TKINTER LIBRARY BUILT INTO PYTHON
@@ -7,56 +9,75 @@ from tkinter import ttk, font, messagebox
 
 
 
+
+
+def on_entry_click(entry, text):
+    """function that gets called whenever entry is clicked"""
+    if entry.get() == text:
+       entry.delete(0, "end") # delete all the text in the entry
+       entry.insert(0, '') #Insert blank for user input
+def on_focusout(entry, text):
+    if entry.get() == '':
+        entry.insert(0, text)
+
+def create_tempbox(entry, text):
+    entry.insert(0, text)
+    entry.bind('<FocusIn>', lambda x: on_entry_click( entry, text))
+    entry.bind('<FocusOut>', lambda x: on_focusout( entry, text))
+    # entry.config(fg = 'grey')
+    # entry.pack(side="left")
+
 #creates a window class which holds all of the information for the gui
+
 
 
 class window:
     def __init__(self, parent):
         self.parent = parent 
-        self.parent.configure(background = 'black') #sets grey bg
-        self.parent.geometry("1280x750") #ses default window size
+        self.parent.configure(background = '#CECECE') #sets grey bg
+        self.parent.geometry("750x470") #sets default window size (1280x750)
         self.parent.title("Microfluidic Etch Program")#sets tittle
 
 
  
 
         #Setting up row and column configuration for the parent window
-        for x in range (0, 9, 4):
-            self.parent.columnconfigure(x, {'minsize': 48})
-        for x in range(1, 4):
-            self.parent.columnconfigure(x, {'minsize': 96})
-        for x in range(5, 9):
-            self.parent.columnconfigure(x, {'minsize': 96})
-        self.parent.rowconfigure(0, {'minsize':55})
-        self.parent.rowconfigure(1, {'minsize': 443})
-        self.parent.rowconfigure(2, {'minsize': 222})
-        #Creaets two columns for each frame
+        # for x in range (0, 9, 4):
+        #     self.parent.columnconfigure(x, {'minsize': 48})
+        # for x in range(1, 4):
+        #     self.parent.columnconfigure(x, {'minsize': 96})
+        # for x in range(5, 9):
+        #     self.parent.columnconfigure(x, {'minsize': 96})
+        #self.parent.rowconfigure(0, {'minsize':55})
+        self.parent.rowconfigure(0, {'minsize': 300})
+        #self.parent.rowconfigure(2, {'minsize': 222})
+        #Creates two columns for each frame
         self.f1 =tk.Frame(self.parent, background = "White")
         self.f2 = tk.Frame(self.parent, background = "#CECECE") 
-        self.f1.grid(row =1,column =1, columnspan =4)
-        self.f2.grid(row =1,column =5, columnspan =3)
+        self.f1.grid(row =0,column =1, columnspan =4)
+        self.f2.grid(row =0,column =5, columnspan =3)
 
 
         #sets up row and column configuration for frame 1
-        for x in range (0,7):
-            self.f1.rowconfigure(x, {'minsize': 44})
-        self.f1.rowconfigure(7, {'minsize': 88})
-        for x in range(0,8):
-            self.f2.rowconfigure(x, {'minsize': 60})
+        # for x in range (0,7):
+        #     self.f1.rowconfigure(x, {'minsize': 44})
+        # self.f1.rowconfigure(7, {'minsize': 88})
+        # for x in range(0,8):
+        #     self.f2.rowconfigure(x, {'minsize': 60})
 
 
 
 
 
         #adding logo
-        logo = tk.PhotoImage(file ="group_logo_text.png")
-        logo_label = tk.Label(self.parent, image = logo, bg = '#CECECE' )
-        logo_label.image = logo #wthout tihs command the image is deleted by python's garbage collector
-        logo_label.grid(row =2, column =1, columnspan =2) #positions thhe logo
+        # logo = tk.PhotoImage(file ="group_logo_text.png")
+        # logo_label = tk.Label(self.parent, image = logo, bg = '#CECECE' )
+        # logo_label.image = logo #without this command the image is deleted by python's garbage collector
+        # logo_label.grid(row =2, column =1, columnspan =2) #positions thhe logo
 
-        #Creates and positions author's watermark
-        name_label = tk.Label(self.parent, text = "By Vishwa Nathan (vnathan@umich.edu)", bg = '#CECECE', font = ('Avenir 18 bold') )
-        name_label.grid(row =2, column =6, pady=(75,0), padx = (50,0))
+        # #Creates and positions author's watermark
+        # name_label = tk.Label(self.parent, text = "By Vishwa Nathan (vnathan@umich.edu)", bg = '#CECECE', font = ('Avenir 18 bold') )
+        # name_label.grid(row =2, column =6, pady=(75,0), padx = (50,0))
 
         #Adding widgets for frame 1
         etch_program_label = tk.Label(self.f1, text = "Etch Program", font = ('Avenir 24 bold'), fg = 'black', bg = 'white' )
@@ -81,6 +102,7 @@ class window:
         c_entryframe = tk.Frame(self.f1)
         
         self.fin_pos_entry = tk.Entry(fin_pos_entryframe)
+        create_tempbox(self.fin_pos_entry, "Final Position")
         self.init_pos_entry= tk.Entry(init_pos_entryframe)
         self.a_entry = tk.Entry(a_entryframe)
         self.b_entry = tk. Entry(b_entryframe)
@@ -100,7 +122,7 @@ class window:
             borderframe.config(bg = "Black", borderwidth =1) #Allows the enttry boxes to have a black frame
             borderframe.grid(row = row, column = column +1, columnspan =2,sticky = tk.E, padx =20) #positions the background frame behind the entry box
             #Sets the relief to flat and positions it inside the entry box frame
-            entrybox.config(relief="flat", highlightthickness=0) 
+            entrybox.config(relief="flat", highlightthickness=0, width =10) 
             entrybox.grid(row =0, column =0)
 
         #Loops through the list containing the labels and entry boxes and positions them.
@@ -131,13 +153,13 @@ class window:
         for x in range(0,3):
             image_label_list[x].image= image_list[x]
             if (x ==0):
-                image_label_list[x].grid(row =7, column =x, sticky = tk.W , pady = (30, 8), padx =(20,0))  
+                image_label_list[x].grid(row =7, column =x, sticky = tk.W , pady = (10, 8), padx =(20,0))  
                 image_button_list[x].grid(row =8, column =x, sticky = tk.W +tk.E, padx = (20, 85), pady=(0,20) ) 
             elif (x==1):
-                image_label_list[x].grid(row =7, column =x, sticky = tk.W , pady = (30,8), padx =(10,10))
+                image_label_list[x].grid(row =7, column =x, sticky = tk.W , pady = (10,8), padx =(10,10))
                 image_button_list[x].grid(row =8, column =x, sticky = tk.W +tk.E, padx = (10,10), pady=(0,20) )
             else: 
-                image_label_list[x].grid(row =7, column =x, sticky =  tk.W, pady = (30,8), padx = (30,20))
+                image_label_list[x].grid(row =7, column =x, sticky =  tk.W, pady = (10,8), padx = (30,20))
                 image_button_list[x].grid(row =8, column =x, sticky = tk.W +tk.E, padx = (35,20), pady=(0,20) )
 
 
@@ -152,8 +174,10 @@ class window:
 
         self.movement_speed_entry_box = tk.Entry(movement_speed_entryframe)
 
+    
+
         
-        position_and_config_widget(movement_speed_label, movement_speed_entryframe, self.movement_speed_entry_box, "Speed (mm/s)", 0,0, "#CECECE")
+        position_and_config_widget(movement_speed_label, movement_speed_entryframe, self.movement_speed_entry_box, "Speed", 0,0, "#CECECE")
 
         #These create the movement buttons and import their images.
         tentop = tk.PhotoImage(file = "ten_top.png")
@@ -169,9 +193,9 @@ class window:
         self.pos_tenth_button.image = tenthtop
 
 
-        home_image = tk.PhotoImage(file ="homebutton.png")
-        self.home_button = tk.Label(self.f2, text = "Home", image = home_image)
-        self.home_button.image=home_image
+        # home_image = tk.PhotoImage(file ="homebutton.png")
+        # self.home_button = tk.Label(self.f2, text = "Home", image = home_image)
+        # self.home_button.image=home_image
 
         tenthbottom = tk.PhotoImage(file = "tenth_bottom.png")
         self.neg_tenth_button = tk.Label(self.f2, text = "-10", image = tenthbottom)
@@ -187,11 +211,12 @@ class window:
 
 
         #This positions the movement buttons
-        button_list = [self.pos_ten_button, self.pos_one_button, self.pos_tenth_button, self.home_button, self.neg_tenth_button, self.neg_one_button, self.neg_ten_button]
+        button_list = [self.pos_ten_button, self.pos_one_button, self.pos_tenth_button,  self.neg_tenth_button, self.neg_one_button, self.neg_ten_button]
+        #button_list = [self.pos_ten_button, self.pos_one_button, self.pos_tenth_button, self.home_button, self.neg_tenth_button, self.neg_one_button, self.neg_ten_button]
 
         for index, button in enumerate(button_list):
             button.config(background ='#CECECE')
-            button.grid(row =index+1,  sticky =  tk.W+ tk.E, columnspan =3)
+            button.grid(row =index+1,  sticky =  tk.W+ tk.E, columnspan =2, )
 
 
 
@@ -199,11 +224,6 @@ class window:
     
 
 root = tk.Tk()
-root.resizable(0,0)
+#root.resizable(0,0)
 mw = window(root)
-tk.mainloop
-
-
-
-
-
+tk.mainloop()
