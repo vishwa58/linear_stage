@@ -16,16 +16,21 @@ def on_entry_click(entry, text):
     if entry.get() == text:
        entry.delete(0, "end") # delete all the text in the entry
        entry.insert(0, '') #Insert blank for user input
+       entry.config(fg = 'black')
+
 def on_focusout(entry, text):
     if entry.get() == '':
         entry.insert(0, text)
+        entry.config(fg = 'grey')
+
 
 def create_tempbox(entry, text):
     entry.insert(0, text)
     entry.bind('<FocusIn>', lambda x: on_entry_click( entry, text))
     entry.bind('<FocusOut>', lambda x: on_focusout( entry, text))
-    # entry.config(fg = 'grey')
-    # entry.pack(side="left")
+    entry.config(fg = 'grey')
+   
+    # entry.pack(side="left"+"right")
 
 #creates a window class which holds all of the information for the gui
 
@@ -49,12 +54,12 @@ class window:
         # for x in range(5, 9):
         #     self.parent.columnconfigure(x, {'minsize': 96})
         #self.parent.rowconfigure(0, {'minsize':55})
-        self.parent.rowconfigure(0, {'minsize': 300})
+        # self.parent.rowconfigure(0, {'minsize': 300})
         #self.parent.rowconfigure(2, {'minsize': 222})
         #Creates two columns for each frame
         self.f1 =tk.Frame(self.parent, background = "White")
         self.f2 = tk.Frame(self.parent, background = "#CECECE") 
-        self.f1.grid(row =0,column =1, columnspan =4)
+        self.f1.grid(row =0,column =1, columnspan =4, padx = (30,0), pady = (10,0))
         self.f2.grid(row =0,column =5, columnspan =3)
 
 
@@ -83,17 +88,17 @@ class window:
         etch_program_label = tk.Label(self.f1, text = "Etch Program", font = ('Avenir 24 bold'), fg = 'black', bg = 'white' )
         etch_program_label.grid(row =0, columnspan =3)
         #Label for the speed equation
-        speed_label = tk.Label(self.f1, text = "Speed = " + u'ct\u00B2'+ " + bt + a ", font = ('Avenir 18 italic'), bg = "white") 
+        speed_label = tk.Label(self.f1, text = "Speed = " + u'ct\u00B2'+ " + bt + a ", font = ('Avenir 20 italic'), bg = "white") 
         speed_label.grid(row =1, columnspan=3, )
 
 
 
         #Creates labels, and entry boxes. The frame is used to add a border to the entry box
-        fin_pos_label=tk.Label(self.f1)
-        init_pos_label =tk.Label(self.f1)
-        a_label =tk.Label(self.f1)
-        b_label =tk.Label(self.f1)
-        c_label =tk.Label(self.f1)
+        # fin_pos_label=tk.Label(self.f1)
+        # init_pos_label =tk.Label(self.f1)
+        # a_label =tk.Label(self.f1)
+        # b_label =tk.Label(self.f1)
+        # c_label =tk.Label(self.f1)
        
         fin_pos_entryframe = tk.Frame(self.f1)
         init_pos_entryframe = tk.Frame(self.f1)
@@ -102,34 +107,59 @@ class window:
         c_entryframe = tk.Frame(self.f1)
         
         self.fin_pos_entry = tk.Entry(fin_pos_entryframe)
-        create_tempbox(self.fin_pos_entry, "Final Position")
         self.init_pos_entry= tk.Entry(init_pos_entryframe)
         self.a_entry = tk.Entry(a_entryframe)
         self.b_entry = tk. Entry(b_entryframe)
         self.c_entry = tk.Entry(c_entryframe)
 
         #Stores all the labels and entrry boxes from frame one into a list so they can be easily positioned using one function
-        label_list = [init_pos_label, fin_pos_label, a_label, b_label, c_label]
-        entry_list = [self.init_pos_entry, self.fin_pos_entry, self.a_entry, self.b_entry, self.c_entry]
-        entryframe_list = [ fin_pos_entryframe, init_pos_entryframe, a_entryframe, b_entryframe, c_entryframe]
-        labeltext_list = ["Initial Position", "Final Position", "A [mm/s]", "B [mm/s" + u'\u00B2'+ "]", "C [mm/s" + u'\u00B3'+ "]"]
+        # label_list = [init_pos_label, fin_pos_label, a_label, b_label, c_label]
+        entry_list = [ self.init_pos_entry, self.fin_pos_entry,  self.a_entry, self.b_entry, self.c_entry]
+        entryframe_list = [ init_pos_entryframe, fin_pos_entryframe,  a_entryframe, b_entryframe, c_entryframe]
+        labeltext_list = ["Initial Position", "Final Position",  "A [mm/s]", "B [mm/s" + u'\u00B2'+ "]", "C [mm/s" + u'\u00B3'+ "]"]
        
 
         #Function to position widgets in frame 1 and 2
-        def position_and_config_widget(label, borderframe, entrybox, labeltext, row, column, bg_color):
-            label.config(text = labeltext, font = ('Avenir 18'), bg = bg_color) #Sets font of labels to 18
-            label.grid(row=row, column = column, sticky = tk.W, padx =20) #sets the labels' rows and columns
+        def position_and_config_widget(borderframe, entrybox, labeltext, row, column, bg_color):
+            # label.config(text = labeltext, font = ('Avenir 18'), bg = bg_color) #Sets font of labels to 18
+            # label.grid(row=row, column = column, sticky = tk.W, padx =20) #sets the labels' rows and columns
+            create_tempbox(entrybox, labeltext)
             borderframe.config(bg = "Black", borderwidth =1) #Allows the enttry boxes to have a black frame
-            borderframe.grid(row = row, column = column +1, columnspan =2,sticky = tk.E, padx =20) #positions the background frame behind the entry box
+            borderframe.grid(row = row, column = column +1) #positions the background frame behind the entry box
             #Sets the relief to flat and positions it inside the entry box frame
-            entrybox.config(relief="flat", highlightthickness=0, width =10) 
+            entrybox.config(relief="flat", highlightthickness=0, width =10, justify = "center", font = ('Avenir 18'))
             entrybox.grid(row =0, column =0)
 
-        #Loops through the list containing the labels and entry boxes and positions them.
-        for x in range (0, 5):
-            position_and_config_widget(label_list[x], entryframe_list[x], entry_list[x], labeltext_list[x], (x+2), 0, "white")
 
-        
+        # for x in range(0,5):
+        #     create_tempbox(entry_list[x], labeltext_list[x])
+
+        #Loops through the list containing the labels and entry boxes and positions them.
+        # for x in range (0, 5):
+        #     position_and_config_widget(label_list[x], entryframe_list[x], entry_list[x], labeltext_list[x], (x+2), 0, "white")
+
+        #Position initial and final positions
+        for x in range (0,5):
+            if (x == 0 or x ==1):
+
+                position_and_config_widget(entryframe_list[x],entry_list[x],labeltext_list[x], 2, x-1, "white")
+                entryframe_list[x].grid(pady = (15, 20))
+                entry_list[x].grid( ipady=12, ipadx = 10)
+                entryframe_list[x].grid(columnspan =2)
+                if (x ==0):
+                    entryframe_list[x].grid(padx=(0,30))
+                else:
+                    entryframe_list[x].grid(padx=(30,0))
+            else:
+                position_and_config_widget(entryframe_list[x],entry_list[x],labeltext_list[x], 3, x-3, "white")
+                entry_list[x].grid( ipady=13, ipadx = 6)
+                entryframe_list[x].grid(pady = (0, 25), padx = 10)
+            
+
+
+
+
+
 
 
         #These are the commands that import the images for the velocity graphs
@@ -141,26 +171,19 @@ class window:
         linear_vel_label = tk.Label(self.f1, image = linear_vel_pic, bg = "white")
         non_linear_vel_label = tk.Label(self.f1, image = non_linear_vel_pic, bg = "white")
         #These commands create the run buttons found below the image
-        self.constant_vel_button = tk.Button(self.f1, text = "Run" )
-        self.linear_vel_button = tk.Button(self.f1, text = "Run")
-        self.non_linear_vel_button = tk.Button(self.f1, text = "Run")
+        # self.constant_vel_button = tk.Button(self.f1, text = "Run" )
+        # self.linear_vel_button = tk.Button(self.f1, text = "Run")
+        # self.non_linear_vel_button = tk.Button(self.f1, text = "Run")
 
         #Puts all of the images and buttons into a list so they can be easily positioned
         image_list = [constant_vel_pic, linear_vel_pic, non_linear_vel_pic]
         image_label_list = [constant_vel_label, linear_vel_label, non_linear_vel_label]
-        image_button_list = [self.constant_vel_button, self.linear_vel_button, self.non_linear_vel_button]
+        # image_button_list = [self.constant_vel_button, self.linear_vel_button, self.non_linear_vel_button]
         #Positions the images and run buttons
         for x in range(0,3):
             image_label_list[x].image= image_list[x]
-            if (x ==0):
-                image_label_list[x].grid(row =7, column =x, sticky = tk.W , pady = (10, 8), padx =(20,0))  
-                image_button_list[x].grid(row =8, column =x, sticky = tk.W +tk.E, padx = (20, 85), pady=(0,20) ) 
-            elif (x==1):
-                image_label_list[x].grid(row =7, column =x, sticky = tk.W , pady = (10,8), padx =(10,10))
-                image_button_list[x].grid(row =8, column =x, sticky = tk.W +tk.E, padx = (10,10), pady=(0,20) )
-            else: 
-                image_label_list[x].grid(row =7, column =x, sticky =  tk.W, pady = (10,8), padx = (30,20))
-                image_button_list[x].grid(row =8, column =x, sticky = tk.W +tk.E, padx = (35,20), pady=(0,20) )
+            image_label_list[x].grid(row =7, column =x, sticky = tk.W +tk.E, pady = (0,20))  
+
 
 
 
@@ -177,7 +200,7 @@ class window:
     
 
         
-        position_and_config_widget(movement_speed_label, movement_speed_entryframe, self.movement_speed_entry_box, "Speed", 0,0, "#CECECE")
+        # position_and_config_widget(movement_speed_label, movement_speed_entryframe, self.movement_speed_entry_box, "Speed", 0,0, "#CECECE")
 
         #These create the movement buttons and import their images.
         tentop = tk.PhotoImage(file = "ten_top.png")
@@ -224,6 +247,6 @@ class window:
     
 
 root = tk.Tk()
-#root.resizable(0,0)
+root.resizable(0,0)
 mw = window(root)
 tk.mainloop()
