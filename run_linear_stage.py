@@ -58,6 +58,6 @@ mw.neg_ten_button.bind("<Button-1>",  lambda a: move_linear_stage(10, 0, STAGE_M
 mw.neg_one_button.bind("<Button-1>",  lambda a: move_linear_stage(1, 0, STAGE_MOTOR, mw.movement_speed_entry_box.get(), 0, 0, ETCHANT_DIRECTION))
 mw.neg_tenth_button.bind("<Button-1>",  lambda a: move_linear_stage(0.1, 0, STAGE_MOTOR, mw.movement_speed_entry_box.get(), 0, 0, ETCHANT_DIRECTION))
 
-mw.home_button.bind("<Button-1>", lambda x: run_home(STAGE_MOTOR, LIMITSWITCH, HOMING_SPEED, HOME_DIRECTION))
+# mw.home_button.bind("<Button-1>", lambda x: run_home(STAGE_MOTOR, LIMITSWITCH, HOMING_SPEED, HOME_DIRECTION))
 
 tk.mainloop()
