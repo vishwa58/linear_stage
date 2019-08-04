@@ -168,9 +168,9 @@ class window:
         linear_vel_pic = tk.PhotoImage(file = "linear_vel.gif")
         non_linear_vel_pic = tk.PhotoImage(file = "non_linear_vel.gif")
         #These commands create the images as labels
-        constant_vel_label = tk.Label(self.f1, image = constant_vel_pic, bg = "white")
-        linear_vel_label = tk.Label(self.f1, image = linear_vel_pic, bg = "white")
-        non_linear_vel_label = tk.Label(self.f1, image = non_linear_vel_pic, bg = "white")
+        self.constant_vel_label = tk.Label(self.f1, image = constant_vel_pic, bg = "white")
+        self.linear_vel_label = tk.Label(self.f1, image = linear_vel_pic, bg = "white")
+        self.non_linear_vel_label = tk.Label(self.f1, image = non_linear_vel_pic, bg = "white")
         #These commands create the run buttons found below the image
         # self.constant_vel_button = tk.Button(self.f1, text = "Run" )
         # self.linear_vel_button = tk.Button(self.f1, text = "Run")
