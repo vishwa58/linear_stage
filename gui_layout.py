@@ -178,7 +178,7 @@ class window:
 
         #Puts all of the images and buttons into a list so they can be easily positioned
         image_list = [constant_vel_pic, linear_vel_pic, non_linear_vel_pic]
-        image_label_list = [constant_vel_label, linear_vel_label, non_linear_vel_label]
+        image_label_list = [self.constant_vel_label, self.linear_vel_label, self.non_linear_vel_label]
         # image_button_list = [self.constant_vel_button, self.linear_vel_button, self.non_linear_vel_button]
         #Positions the images and run buttons
         for x in range(0,3):
