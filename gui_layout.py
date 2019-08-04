@@ -58,9 +58,9 @@ class window:
         #self.parent.rowconfigure(2, {'minsize': 222})
         #Creates two columns for each frame
         self.f1 =tk.Frame(self.parent, background = "White")
-        self.f2 = tk.Frame(self.parent, background = "#CECECE") 
-        self.f1.grid(row =0,column =1, columnspan =4, padx = (30,0), pady = (10,0))
-        self.f2.grid(row =0,column =5, columnspan =3)
+        self.f2 = tk.Frame(self.parent, background = '#CECECE') 
+        self.f1.grid(row =0,column =0,padx = (30,75), pady = (10,0))
+        self.f2.grid(row =0,column =1)
 
 
         #sets up row and column configuration for frame 1
@@ -75,21 +75,22 @@ class window:
 
 
         #adding logo
-        # logo = tk.PhotoImage(file ="group_logo_text.png")
-        # logo_label = tk.Label(self.parent, image = logo, bg = '#CECECE' )
-        # logo_label.image = logo #without this command the image is deleted by python's garbage collector
-        # logo_label.grid(row =2, column =1, columnspan =2) #positions thhe logo
+        logo = tk.PhotoImage(file ="group_logo_text.png")
+        logo_label = tk.Label(self.f1, image = logo, bg = 'White', anchor = "w" )
+        logo_label.image = logo #without this command the image is deleted by python's garbage collector
+        logo_label.grid(row =8, column =2) #positions the logo
 
         # #Creates and positions author's watermark
-        # name_label = tk.Label(self.parent, text = "By Vishwa Nathan (vnathan@umich.edu)", bg = '#CECECE', font = ('Avenir 18 bold') )
-        # name_label.grid(row =2, column =6, pady=(75,0), padx = (50,0))
+        name_label = tk.Label(self.f1, text = "By Vishwa Nathan (vnathan@umich.edu)", bg = 'White', font = ('Avenir 12 bold') )
+        name_label.grid(row =8, column = 0, columnspan =2)
 
         #Adding widgets for frame 1
         etch_program_label = tk.Label(self.f1, text = "Etch Program", font = ('Avenir 24 bold'), fg = 'black', bg = 'white' )
         etch_program_label.grid(row =0, columnspan =3)
         #Label for the speed equation
         speed_label = tk.Label(self.f1, text = "Speed = " + u'ct\u00B2'+ " + bt + a ", font = ('Avenir 20 italic'), bg = "white") 
-        speed_label.grid(row =1, columnspan=3, )
+        speed_label.grid(row =1, columnspan=3)
+   
 
 
 
@@ -143,7 +144,7 @@ class window:
             if (x == 0 or x ==1):
 
                 position_and_config_widget(entryframe_list[x],entry_list[x],labeltext_list[x], 2, x-1, "white")
-                entryframe_list[x].grid(pady = (15, 20))
+                entryframe_list[x].grid(pady = (15, 35))
                 entry_list[x].grid( ipady=12, ipadx = 10)
                 entryframe_list[x].grid(columnspan =2)
                 if (x ==0):
@@ -153,7 +154,7 @@ class window:
             else:
                 position_and_config_widget(entryframe_list[x],entry_list[x],labeltext_list[x], 3, x-3, "white")
                 entry_list[x].grid( ipady=13, ipadx = 6)
-                entryframe_list[x].grid(pady = (0, 25), padx = 10)
+                entryframe_list[x].grid(pady = (0, 35), padx = 10)
             
 
 
@@ -200,7 +201,7 @@ class window:
     
 
         
-        # position_and_config_widget(movement_speed_label, movement_speed_entryframe, self.movement_speed_entry_box, "Speed", 0,0, "#CECECE")
+        # position_and_config_widget(movement_speed_entryframe, self.movement_speed_entry_box, "Speed", 0,0, "#CECECE")
 
         #These create the movement buttons and import their images.
         tentop = tk.PhotoImage(file = "ten_top.png")
@@ -234,12 +235,22 @@ class window:
 
 
         #This positions the movement buttons
-        button_list = [self.pos_ten_button, self.pos_one_button, self.pos_tenth_button,  self.neg_tenth_button, self.neg_one_button, self.neg_ten_button]
+        button_list = [self.pos_ten_button, self.pos_one_button, self.movement_speed_entry_box, self.neg_one_button, self.neg_ten_button]
         #button_list = [self.pos_ten_button, self.pos_one_button, self.pos_tenth_button, self.home_button, self.neg_tenth_button, self.neg_one_button, self.neg_ten_button]
-
+        self.neg_ten_button.grid(row =0)
         for index, button in enumerate(button_list):
-            button.config(background ='#CECECE')
-            button.grid(row =index+1,  sticky =  tk.W+ tk.E, columnspan =2, )
+
+            if (index ==2):
+                position_and_config_widget(movement_speed_entryframe, button , "Speed",index,-1, "#CECECE")
+                button.config (width =7)
+                button.grid(ipady=10)
+                movement_speed_entryframe.grid(pady=20)
+            else:
+                button.config(background ='#CECECE')
+                button.grid(row =index, pady=15)
+
+
+
 
 
 

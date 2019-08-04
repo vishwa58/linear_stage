@@ -42,9 +42,13 @@ def run_home(mymotor, limitswitch, homingspeed, direction):
 
 
 
-mw.constant_vel_button.config(command = lambda:run_etch_program(mw.init_pos_entry.get(), mw.fin_pos_entry.get(), STAGE_MOTOR, mw.a_entry.get(), 0,0))
-mw.linear_vel_button.config (command = lambda:run_etch_program(mw.init_pos_entry.get(), mw.fin_pos_entry.get(), STAGE_MOTOR, mw.a_entry.get(), mw.b_entry.get(),0))
-mw.non_linear_vel_button.config(command = lambda:run_etch_program(mw.init_pos_entry.get(), mw.fin_pos_entry.get(), STAGE_MOTOR, mw.a_entry.get(), mw.b_entry.get(),mw.c_entry.get()))
+# mw.constant_vel_button.config(command = lambda:run_etch_program(mw.init_pos_entry.get(), mw.fin_pos_entry.get(), STAGE_MOTOR, mw.a_entry.get(), 0,0))
+# mw.linear_vel_button.config (command = lambda:run_etch_program(mw.init_pos_entry.get(), mw.fin_pos_entry.get(), STAGE_MOTOR, mw.a_entry.get(), mw.b_entry.get(),0))
+# mw.non_linear_vel_button.config(command = lambda:run_etch_program(mw.init_pos_entry.get(), mw.fin_pos_entry.get(), STAGE_MOTOR, mw.a_entry.get(), mw.b_entry.get(),mw.c_entry.get()))
+
+mw.constant_vel_label.bind("<Button-1>", lambda x :run_etch_program(mw.init_pos_entry.get(), mw.fin_pos_entry.get(), STAGE_MOTOR, mw.a_entry.get(), 0,0))
+mw.linear_vel_label.bind ("<Button-1>", lambda x :run_etch_program(mw.init_pos_entry.get(), mw.fin_pos_entry.get(), STAGE_MOTOR, mw.a_entry.get(), mw.b_entry.get(),0))
+mw.non_linear_vel_label.bind ("<Button-1>", lambda x :run_etch_program(mw.init_pos_entry.get(), mw.fin_pos_entry.get(), STAGE_MOTOR, mw.a_entry.get(), mw.b_entry.get(),mw.c_entry.get()))
 
 mw.pos_ten_button.bind("<Button-1>",  lambda a: move_linear_stage(10, 0, STAGE_MOTOR, mw.movement_speed_entry_box.get(), 0, 0, HOME_DIRECTION))
 mw.pos_one_button.bind("<Button-1>",  lambda a: move_linear_stage(1, 0, STAGE_MOTOR, mw.movement_speed_entry_box.get(), 0, 0, HOME_DIRECTION))
